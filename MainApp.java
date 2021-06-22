@@ -5,16 +5,16 @@ import java.util.Scanner;
  * The class {@code MainApp} contains the method {@code main}, which has the code
  * to run the game 2048.
  * 
- * <p> @author Arthur Bianchessi (arthursbianchessi@gmail.com).
- * <p> @date 2021-06-18.
+ * @author Arthur Bianchessi (arthursbianchessi@gmail.com).
+ * @version 1.0 (2021-06-22).
  */
 public class MainApp extends Auxiliar{
     /**
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        boolean movevalidity1, movevalidity2, movevalidity3, endgame, notwon;
-        String move, newgame;
+        boolean moveValidity1, moveValidity2, moveValidity3, endGame, notWon;
+        String move, newGame;
         int i, j, points, score;
         int[][] grid;
         Scanner input;
@@ -22,16 +22,16 @@ public class MainApp extends Auxiliar{
         greetings();
 
         do{
-            grid = new int [4] [4];
+            grid = new int[4][4];
             input = new Scanner (System.in);
 
             score = 0;
-            endgame = false;
-            notwon = true;
+            endGame = false;
+            notWon = true;
 
             newNumber(grid);
 
-            while (!endgame){
+            while (!endGame){
                 newNumber(grid);
                 printMatrix(grid, score);
 
@@ -40,54 +40,54 @@ public class MainApp extends Auxiliar{
                     move = input.nextLine();
                     move = move.toLowerCase();
 
-                    movevalidity1 = true;
-                    movevalidity2 = true;
-                    movevalidity3 = true;
+                    moveValidity1 = true;
+                    moveValidity2 = true;
+                    moveValidity3 = true;
                     points = 0;
 
                     if (move.equals("left") || move.equals("l")){
-                        movevalidity2 = moveLeft(grid);
+                        moveValidity2 = moveLeft(grid);
                         points = fuseLeft(grid);
                         moveLeft(grid);
                     }
                     else if (move.equals("right") || move.equals("r")){
-                        movevalidity2 = moveRight(grid);
+                        moveValidity2 = moveRight(grid);
                         points = fuseRight(grid);
                         moveRight(grid);
                     }
                     else if (move.equals("up") || move.equals("u")){
-                        movevalidity2 = moveUp(grid);
+                        moveValidity2 = moveUp(grid);
                         points = fuseUp(grid);
                         moveUp(grid);
                     }
                     else if (move.equals("down") || move.equals("d")) {
-                        movevalidity2 = moveDown(grid);
+                        moveValidity2 = moveDown(grid);
                         points = fuseDown(grid);
                         moveDown(grid);
                     }
                     else{
-                        movevalidity1 = false;
+                        moveValidity1 = false;
                     }
 
                     if (points == 0){
-                        movevalidity3 = false;
+                        moveValidity3 = false;
                     }
 
-                    endgame = !emptySpaces(grid);
+                    endGame = !emptySpaces(grid);
                     score += points;
-                }while (endgame || !(movevalidity1 && (movevalidity2 || movevalidity3)));
+                }while (endGame || !(moveValidity1 && (moveValidity2 || moveValidity3)));
 
-                if (notwon && highestValue(grid) == 2048){
-                    notwon = false;
+                if (notWon && highestValue(grid) == 2048){
+                    notWon = false;
                     printYouWon();
                     System.out.println("Do you wish to continue?");
                     do{
-                        newgame = input.nextLine();
-                        newgame = newgame.toLowerCase();
-                    }while(!(newgame.equals("yes") || newgame.equals("no") || newgame.equals("y") || newgame.equals("n")));
+                        newGame = input.nextLine();
+                        newGame = newGame.toLowerCase();
+                    }while(!(newGame.equals("yes") || newGame.equals("no") || newGame.equals("y") || newGame.equals("n")));
 
-                    if (newgame.equals("no") || newgame.equals("n")){
-                        endgame = true;
+                    if (newGame.equals("no") || newGame.equals("n")){
+                        endGame = true;
                     }
                 }
 
@@ -96,13 +96,13 @@ public class MainApp extends Auxiliar{
             printGameOver();
 
             do{
-                newgame = input.nextLine();
-                newgame = newgame.toLowerCase();
-            }while(!(newgame.equals("yes") || newgame.equals("no") || newgame.equals("y") || newgame.equals("n")));
+                newGame = input.nextLine();
+                newGame = newGame.toLowerCase();
+            }while(!(newGame.equals("yes") || newGame.equals("no") || newGame.equals("y") || newGame.equals("n")));
 
             input.close();
             System.out.printf("\n\n\n\n\n");
 
-        }while(newgame.equals("yes") || newgame.equals("y"));
+        }while(newGame.equals("yes") || newGame.equals("y"));
     }
 }
